@@ -9,7 +9,7 @@ namespace SimpleMvvmLib.Commands {
 
     public abstract class AsyncCommandBase : ICommand {
 
-        readonly Action<Exception>? _onException;
+        private readonly Action<Exception> _handler;
 
         private bool _isExecuting;
         public bool IsExecuting {
@@ -24,8 +24,8 @@ namespace SimpleMvvmLib.Commands {
 
         public AsyncCommandBase() : this(null) { }
 
-        public AsyncCommandBase(Action<Exception>? onException) {
-            this._onException = onException;
+        public AsyncCommandBase(Action<Exception> handler) {
+            this._handler = handler;
         }
 
         public virtual bool CanExecute(object parameter) => !this.IsExecuting;
@@ -36,7 +36,7 @@ namespace SimpleMvvmLib.Commands {
                 await this.ExecuteAsync(parameter);
             }
             catch (Exception exception) {
-                this._onException?.Invoke(exception);
+                this._handler?.Invoke(exception);
             }
             this.IsExecuting = false;
         }
