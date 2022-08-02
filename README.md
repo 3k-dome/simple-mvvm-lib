@@ -4,6 +4,10 @@ A simple library for storing boilerplate MVVM code, such as base classes and sim
 
 ## Credits
 
+### ViewModelBase
+
+* [Marc Gravell](https://stackoverflow.com/a/1316417)
+
 ### Commands
 
 * [SingletonSean](https://youtu.be/DNez3wIpHeE)
