@@ -15,8 +15,6 @@ namespace SimpleMvvmLib.Commands {
 
         public abstract void Execute(object parameter);
 
-        protected void OnCanExecuteChanged() {
-            CanExecuteChanged?.Invoke(this, new());
-        }
+        protected void OnCanExecuteChanged() => CanExecuteChanged?.Invoke(this, new());
     }
 }
