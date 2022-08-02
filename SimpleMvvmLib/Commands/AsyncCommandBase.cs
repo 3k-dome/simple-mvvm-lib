@@ -22,7 +22,9 @@ namespace SimpleMvvmLib.Commands {
 
         public event EventHandler CanExecuteChanged;
 
-        public AsyncCommandBase(Action<Exception>? onException = null) {
+        public AsyncCommandBase() : this(null) { }
+
+        public AsyncCommandBase(Action<Exception>? onException) {
             this._onException = onException;
         }
 
@@ -34,11 +36,13 @@ namespace SimpleMvvmLib.Commands {
                 await this.ExecuteAsync(parameter);
             }
             catch (Exception exception) {
-                this._onException?.Invoke(exception);              
-            }    
+                this._onException?.Invoke(exception);
+            }
             this.IsExecuting = false;
         }
 
         protected abstract Task ExecuteAsync(object parameter);
+
+        public void OnCanExecuteChanged() => CanExecuteChanged?.Invoke(this, new());
     }
 }
